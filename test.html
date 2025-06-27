@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Submit to Google Sheets</title>
+</head>
+<body>
+  <h2>Submit Data</h2>
+
+  <form id="myForm">
+    <input type="text" id="name" placeholder="Name" required><br><br>
+    <input type="email" id="email" placeholder="Email" required><br><br>
+    <textarea id="note" placeholder="Note"></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const note = document.getElementById('note').value.trim();
+
+      if (!name || !email) {
+        alert("Please fill in name and email.");
+        return;
+      }
+
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbznoB9MDrllMdv7nja-PAafP8nCpjx8mety0HkYjn0OjKy24lRavODmmG-gip-JD_6Smw/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, note })
+        });
+
+        alert("Submitted! (Note: cannot read response in no-cors mode)");
+        form.reset();
+      } catch (err) {
+        alert("Submit failed: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
