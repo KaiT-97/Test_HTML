@@ -32,13 +32,23 @@
       try {
         await fetch("https://script.google.com/macros/s/AKfycbznoB9MDrllMdv7nja-PAafP8nCpjx8mety0HkYjn0OjKy24lRavODmmG-gip-JD_6Smw/exec", {
           method: "POST",
-          mode: "no-cors",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ name, email, note })
         });
+		
+		const response = await fetch("YOUR_URL", { ... });
+		const result = await response.json();
 
+		if (result.result === "success") {
+		alert("Submitted successfully!");
+		form.reset();
+		} else {
+		alert("Error: " + result.error);
+		}
+		
+		if (result.result === "success") {
         alert("Submitted! (Note: cannot read response in no-cors mode)");
         form.reset();
       } catch (err) {
