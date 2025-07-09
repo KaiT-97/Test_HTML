@@ -234,7 +234,7 @@
 <div id = "Output" class="tabcontent">
    <h3>Output Form</h4>
    <form id="outputForm">
-	<input type="date" id="outputdate" placeholder="DATE OF OUTPUT" required><br><br>
+	<input type="date" id="output-date" placeholder="DATE OF OUTPUT" required><br><br>
 	<label for="country">Which inventory:</label>
 	<select id="output-country" name="Country">
 	  <option value="">--SELECT INVENTORY--</option>
@@ -455,26 +455,30 @@
 		async function handleSubmit(e) {
 			e.preventDefault();
 			const form = e.target;
-			const date = form.querySelector('input[datetime="date"]').value.trim();
+			const date = form.querySelector(`#${form.id === 'inputForm' ? 'input-date' : 'output-date'}`).value.trim();
       		const country = form.querySelector('select[name="Country"]').value.trim();
       		const product_type = form.querySelector('select[name="ProductType"]').value.trim();
 	  		const visibleSection = document.querySelector('.conditional-section:not([style*="display: none"])');
+			const purpose = form.querySelector('select[name="Purpose"]');
+			const formdata = new URLSearchParams();
+			if (purpose) {
+				formdata.append("Purpose", purpose.value.trim());
 	  		const lotnumbers = [...visibleSection.querySelectorAll('.lotNo')].map(input => input.value.trim());
 	  		const quantities = [...visibleSection.querySelectorAll('.quantity')].map(input => input.value.trim());
 
 	  		const hasData = quantities.some(q => q !== "");
-				if (!hasData) {
-				alert("Please fill in at least one quantity.");
+			if (!date || !country || !product_type || !purpose || !hasData) {
+				alert("Please fill in all required fields.");
 				return;
-				}
-
+			}
+        }
 	 
-      		const formdata = new URLSearchParams();
       		formdata.append("Date", date);
       		formdata.append("Country", country);
       		formdata.append("Product Type", product_type);
       		formdata.append("Lot No.", lotnumbers.join(','));	
-      		formdata.append("Quantity", quantities.join(','));	  
+      		formdata.append("Quantity", quantities.join(','));
+			formdata.append("Transaction Type", form.id === "inputForm" ? "Input": "Output");
 
       		try {
         	const response = await fetch("https://script.google.com/macros/s/AKfycbznoB9MDrllMdv7nja-PAafP8nCpjx8mety0HkYjn0OjKy24lRavODmmG-gip-JD_6Smw/exec", {
@@ -489,8 +493,8 @@
 
         		if (result.result === "success") {
           			alert("Submitted successfully!");
-          			form.reset();
-					form.querySelectorAll(".conditional-section").forEach(sec => sec.style.display = "none");
+					document.querySelectorAll(".conditional-section").forEach(sec => sec.style.display = "none");
+					form.reset();
         		} else {
           			alert("Error: " + result.error);
         		}
