@@ -2,55 +2,526 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Submit to Google Sheets</title>
+  <title>INVENTORY IN/OUT FORM</title>
+  <style>
+	body {
+	font-family: "Times New Roman";
+	}
+	.tab {
+		overflow: hidden;
+		border-bottom: 2px solid #ccc;
+	}
+	.tab button {
+		background-color: #48D1CC;
+		float: top-left;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		padding: 10px 20px;
+		transition: 1s;
+	}
+	.tab button:hover {
+		background-color: #ddd;
+	}
+	.tab button.active {
+		background-color: #ccc;
+	}
+	.tabcontent {
+		display: none;
+		padding: 20px;
+	}
+	.product-row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	}
+
+	.product-label {
+	width: 200px; /* Adjust as needed */
+	min-width: 150px;
+	margin-right: 10px;
+	}
+	.product-row input {
+	margin-right: 10px;
+	}
+</style>
 </head>
 <body>
-  <h2>Submit Data</h2>
+  <h2>INVENTORY IN/OUT FORM</h2>
+  
+  <div class ="tab">
+	<button class="tablinks" onclick="openTab(event, 'Input')" id="defaultOpen">Input</button>
+	<button class="tablinks" onclick="openTab(event, 'Output')">Output</button>
+  </div>
+  
+  <div id = "Input" class="tabcontent">
+   <h3>Input Form</h3>
+   <form id="inputForm">
+	<input type="date" id="input-date" placeholder="DATE OF INPUT" required><br><br>
+	<label for="country">Which inventory:</label>
+	<select id="input-country" name="Country">
+	  <option value="">--SELECT INVENTORY--</option>
+	  <option value="SG">Singapore</option>
+	  <option value="VN">Vietnam</option>
+	  <option value="IDN">Indonesia</option>
+	</select>
+	<br><br>
+	<label for="productType">Choose Product Type:</label>
+	<select id="input-productType" name="ProductType">
+	  <option value="">--Please select--</option>
+	  <option value="Machine">Machine</option>
+	  <option value="Test kit">Test kit</option>
+	  <option value="Consumables">Consumables</option>
+	  <option value="Raw materials">Raw materials</option>
+	</select>
+	
+	<br><br>
 
-  <form id="myForm">
-    <input type="text" id="name" placeholder="Name" required><br><br>
-    <input type="email" id="email" placeholder="Email" required><br><br>
-    <textarea id="note" placeholder="Note"></textarea><br><br>
+<!-- This is for Machine details -->	
+	<div id="input-Machine" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">RAPID Heater - Delta:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">RAPID Heater - MAX:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>	  
+	 <div class="product-row"> 
+	  <div class="product-label">RAPIDPlus:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">RAPID Reader:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	</div>
+
+<!-- This is for Test kit details -->
+	<div id="input-Test kit" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">Lysis Buffer:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Extraction stick:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>	  
+	 <div class="product-row"> 
+	  <div class="product-label">Washing Buffer:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">Elution Buffer:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">PC Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">EHP Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">EMS Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">WSSV Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	</div>
+	
+<!-- This is for Consumables details -->
+	<div id="input-Consumables" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">Reader adapter:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Heater adapter:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Mica lid:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Aluminum block - L (MAX):</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Aluminum block - S (MAX):</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Backpack:</div>
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Grindling pestle:</div>
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Gloves:</div>
+	  <input class="lotNo" placeholder="Size">
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Pipette:</div>
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>	
+	 <div class="product-row">
+	  <div class="product-label">Pipette tips:</div>
+	  <input class="lotNo" placeholder="Tip size">
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>	 
+	 <div class="product-row">
+	  <div class="product-label">Rack - RAPID:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Rack 5mL - RAPID MAX:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Rack 0.5mL - RAPID MAX:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Heater box:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Reader box:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	</div>
+
+<!-- This is for raw materials details-->
+	<div id="input-Raw materials" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">5mL tube:</div>
+	  <input class="lotNo" placeholder="Tube color">	  
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Ethanol 99%:</div>	  
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Washing Buffer Stock:</div>	  
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	</div>
     <button type="submit">Submit</button>
   </form>
+</div>
 
-  <script>
-    const form = document.getElementById('myForm');
+<div id = "Output" class="tabcontent">
+   <h3>Output Form</h4>
+   <form id="outputForm">
+	<input type="date" id="outputdate" placeholder="DATE OF OUTPUT" required><br><br>
+	<label for="country">Which inventory:</label>
+	<select id="output-country" name="Country">
+	  <option value="">--SELECT INVENTORY--</option>
+	  <option value="SG">Singapore</option>
+	  <option value="VN">Vietnam</option>
+	  <option value="IDN">Indonesia</option>
+	</select>
+	<br><br>
+	<label for="productType">Choose Product Type:</label>
+	<select id="output-productType" name="ProductType">
+	  <option value="">--Please select--</option>
+	  <option value="Machine">Machine</option>
+	  <option value="Test kit">Test kit</option>
+	  <option value="Consumables">Consumables</option>
+	  <option value="Raw materials">Raw materials</option>
+	</select>
+	
+	<br><br>
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
+<!-- This is for Machine details -->	
+	<div id="output-Machine" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">RAPID Heater - Delta:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">RAPID Heater - MAX:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>	  
+	 <div class="product-row"> 
+	  <div class="product-label">RAPIDPlus:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">RAPID Reader:</div>
+	  <input class="lotNo" placeholder="Serial No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	</div>
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const note = document.getElementById('note').value.trim();
+<!-- This is for Test kit details -->
+	<div id="output-Test kit" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">Lysis Buffer:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Extraction stick:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>	  
+	 <div class="product-row"> 
+	  <div class="product-label">Washing Buffer:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">Elution Buffer:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">PC Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">EHP Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">EMS Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	 <div class="product-row"> 
+	  <div class="product-label">WSSV Integrated beads:</div>
+	  <input class="lotNo" placeholder="Lot No.">
+	  <input class="quantity" type="number" placeholder="Quantity">	  
+	 </div>
+	</div>
+	
+<!-- This is for Consumables details -->
+	<div id="output-Consumables" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">Reader adapter:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Heater adapter:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Mica lid:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Aluminum block - L (MAX):</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Aluminum block - S (MAX):</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Backpack:</div>
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Grindling pestle:</div>
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Gloves:</div>
+	  <input class="lotNo" placeholder="Size">
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Pipette:</div>
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>	
+	 <div class="product-row">
+	  <div class="product-label">Pipette tips:</div>
+	  <input class="lotNo" placeholder="Tip size">
+	  <input class="quantity" type="number" placeholder="Quantity (boxes)">
+	 </div>	 
+	 <div class="product-row">
+	  <div class="product-label">Rack - RAPID:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Rack 5mL - RAPID MAX:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Rack 0.5mL - RAPID MAX:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Heater box:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Reader box:</div>
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	</div>
+	
+<!-- This is for raw materials details-->
+	<div id="output-Raw materials" class="conditional-section">
+	 <div class="product-row">
+	  <div class="product-label">5mL tube:</div>
+	  <input class="lotNo" placeholder="Tube color">	  
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Ethanol 99%:</div>	  
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	 <div class="product-row">
+	  <div class="product-label">Washing Buffer Stock:</div>	  
+	  <input class="quantity" type="number" placeholder="Quantity">
+	 </div>
+	</div>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+  
+	<script>
+	 function openTab(evt, tabName) {
+	 const tabcontents = document.getElementsByClassName("tabcontent");
+		for (const content of tabcontents) {
+		content.style.display = "none";
+		}
 
-      const formdata = new URLSearchParams();
-      formdata.append("name", name);
-      formdata.append("email", email);
-      formdata.append("note", note);
+	 const tablinks = document.getElementsByClassName("tablinks");
+	 for (const link of tablinks) {
+		link.className = link.className.replace(" active", "");
+	 }
 
-      try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbznoB9MDrllMdv7nja-PAafP8nCpjx8mety0HkYjn0OjKy24lRavODmmG-gip-JD_6Smw/exec", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: formdata.toString()
-        });
+	 document.getElementById(tabName).style.display = "block";
+	 evt.currentTarget.className += " active";
+	// Hide all conditional sections when switching tab
+ 	 document.querySelectorAll(".conditional-section").forEach(section => {
+     section.style.display = "none";
+  	 });
+	}
 
-        const result = await response.json();
+	// Auto open first tab
+	document.getElementById("defaultOpen").click();
 
-        if (result.result === "success") {
-          alert("Submitted successfully!");
-          form.reset();
-        } else {
-          alert("Error: " + result.error);
-        }
-      } catch (err) {
-        alert("Submit failed: " + err.message);
-        console.error(err);
-      }
+	  // Hide all conditional sections when switching tab
+  	document.querySelectorAll(".conditional-section").forEach(section => {
+    section.style.display = "none";
+  });
+	</script>
+
+	<script>
+		document.getElementById('inputForm').addEventListener('submit',handleSubmit);
+		document.getElementById('outputForm').addEventListener('submit',handleSubmit);
+		
+		async function handleSubmit(e) {
+			e.preventDefault();
+			const form = e.target;
+			const date = form.querySelector('input[datetime="date"]').value.trim();
+      		const country = form.querySelector('select[name="Country"]').value.trim();
+      		const product_type = form.querySelector('select[name="ProductType"]').value.trim();
+	  		const visibleSection = document.querySelector('.conditional-section:not([style*="display: none"])');
+	  		const lotnumbers = [...visibleSection.querySelectorAll('.lotNo')].map(input => input.value.trim());
+	  		const quantities = [...visibleSection.querySelectorAll('.quantity')].map(input => input.value.trim());
+
+	  		const hasData = quantities.some(q => q !== "");
+				if (!hasData) {
+				alert("Please fill in at least one quantity.");
+				return;
+				}
+
+	 
+      		const formdata = new URLSearchParams();
+      		formdata.append("Date", date);
+      		formdata.append("Country", country);
+      		formdata.append("Product Type", product_type);
+      		formdata.append("Lot No.", lotnumbers.join(','));	
+      		formdata.append("Quantity", quantities.join(','));	  
+
+      		try {
+        	const response = await fetch("https://script.google.com/macros/s/AKfycbznoB9MDrllMdv7nja-PAafP8nCpjx8mety0HkYjn0OjKy24lRavODmmG-gip-JD_6Smw/exec", {
+          		method: "POST",
+          		headers: {
+            		"Content-Type": "application/x-www-form-urlencoded"
+          		},
+          	body: formdata.toString()
+        	});
+
+        	const result = await response.json();
+
+        		if (result.result === "success") {
+          			alert("Submitted successfully!");
+          			form.reset();
+					form.querySelectorAll(".conditional-section").forEach(sec => sec.style.display = "none");
+        		} else {
+          			alert("Error: " + result.error);
+        		}
+      		} catch (err) {
+        		alert("Submit failed: " + err.message);
+        		console.error(err);
+      		}
+    	};	
+	</script>
+
+<script>
+  function handleProductTypeChange(selectElement) {
+    const selectedType = selectElement.value;
+    const form = selectElement.closest("form");
+    const sections = form.querySelectorAll(".conditional-section");
+
+    sections.forEach(section => {
+      section.style.display = "none";
     });
-  </script>
+
+    if (selectedType) {
+      const prefix = form.id === "inputForm" ? "input-" : "output-";
+	  const targetSection = form.querySelector(`#${prefix}${CSS.escape(selectedType)}`);
+      if (targetSection) {
+        targetSection.style.display = "block";
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".conditional-section").forEach(section => {
+      section.style.display = "none";
+    });
+
+    const inputProductType = document.getElementById("input-productType");
+    const outputProductType = document.getElementById("output-productType");
+
+    inputProductType.addEventListener("change", () => handleProductTypeChange(inputProductType));
+    outputProductType.addEventListener("change", () => handleProductTypeChange(outputProductType));
+  });
+</script>
+
+
 </body>
 </html>
