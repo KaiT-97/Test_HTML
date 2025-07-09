@@ -469,16 +469,26 @@
 			const productRows = visibleSection.querySelectorAll('.product-row');
 
 			productRows.forEach(row => {
-			const quantity = row.querySelector('.quantity')?.value.trim() || "";
-			if (quantity !== "") {
-				const label = row.querySelector('.product-label')?.textContent.trim() || "";
-				const lot = row.querySelector('.lotNo')?.value.trim() || "";
-
-			quantities.push(quantity);
+			const label = row.querySelector('.product-label')?.textContent.trim() || "";
+			const lot = row.querySelector('.lotNo')?.value.trim() || "";
+			const quantityInput = row.querySelector('.quantity');
+			const quantity = quantityInput ? quantityInput.value.trim() : "";
+			
+			// For Machine: use lotNo only
+			if (product_type === "Machine" && lot !== "") {
 			lotnumbers.push(lot);
+			quantities.push(""); // maintain alignment
+			productNames.push(label);
+			}
+
+			// For all other types: require quantity
+			if (product_type !== "Machine" && quantity !== "") {
+			lotnumbers.push(lot); // can be ""
+			quantities.push(quantity);
 			productNames.push(label);
 			}
 			});
+
 			const formdata = new URLSearchParams();
 			if (purpose) {
 				formdata.append("Purpose", purpose.value.trim());
