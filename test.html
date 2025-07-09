@@ -467,7 +467,7 @@
 				formdata.append("Purpose", purpose.value.trim());
 			}
 	  		const hasData = quantities.some(q => q !== "");
-			if (!date || !country || !product_type || !purpose) {
+			if (!date || !country || !product_type || !hasData || (form.id === 'outputForm' && !purpose)) {
 				alert("Please fill in all required fields.");
 				return;
 			}
