@@ -493,7 +493,7 @@
 			if (purpose) {
 				formdata.append("Purpose", purpose.value.trim());
 			}
-			const hasLotNo = lotnumbers.some(lot => lot !== "");
+			const hasLotNo = lotnumbers.some(lotNo => lotNo !== "");
 			const hasQuantity = quantities.some(q => q !== "");
 			const isMachine = product_type === "Machine";
 
