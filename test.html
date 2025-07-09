@@ -460,18 +460,17 @@
       		const product_type = form.querySelector('select[name="ProductType"]').value.trim();
 	  		const visibleSection = document.querySelector('.conditional-section:not([style*="display: none"])');
 			const purpose = form.querySelector('select[name="Purpose"]');
+			const lotnumbers = [...visibleSection.querySelectorAll('.lotNo')].map(input => input.value.trim());
+	  		const quantities = [...visibleSection.querySelectorAll('.quantity')].map(input => input.value.trim());
 			const formdata = new URLSearchParams();
 			if (purpose) {
 				formdata.append("Purpose", purpose.value.trim());
-	  		const lotnumbers = [...visibleSection.querySelectorAll('.lotNo')].map(input => input.value.trim());
-	  		const quantities = [...visibleSection.querySelectorAll('.quantity')].map(input => input.value.trim());
-
+			}
 	  		const hasData = quantities.some(q => q !== "");
 			if (!date || !country || !product_type || !purpose || !hasData) {
 				alert("Please fill in all required fields.");
 				return;
 			}
-        }
 	 
       		formdata.append("Date", date);
       		formdata.append("Country", country);
